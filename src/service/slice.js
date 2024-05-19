@@ -61,9 +61,11 @@ export const bookSlice = createSlice({
       .addCase(getBooks.fulfilled, (state, action) => {
         state.isloading = false;
         state.books = action.payload;
+        state.errorMessage = null;
       })
       .addCase(getBooks.rejected, (state) => {
         state.isloading = false;
+        state.errorMessage = "Failed when getting books";
       })
       .addCase(fetchBookDetails.pending, (state) => {
         state.isloading = true;
@@ -74,6 +76,7 @@ export const bookSlice = createSlice({
       })
       .addCase(fetchBookDetails.rejected, (state) => {
         state.isloading = false;
+        state.errorMessage = "Failed when getting book details";
       })
       .addCase(addToReadingList.pending, (state) => {
         state.isloading = true;
@@ -84,6 +87,7 @@ export const bookSlice = createSlice({
       })
       .addCase(addToReadingList.rejected, (state) => {
         state.isloading = false;
+        state.errorMessage = "Failed when adding book to reading list";
       })
       .addCase(getFavorites.pending, (state) => {
         state.isloading = true;
@@ -94,7 +98,7 @@ export const bookSlice = createSlice({
       })
       .addCase(getFavorites.rejected, (state, action) => {
         state.isloading = false;
-        state.errorMessage = action.error.message;
+        state.errorMessage = "Failed when getting favorites";
       })
       .addCase(removeFavorite.pending, (state) => {
         state.isloading = true;
@@ -105,7 +109,7 @@ export const bookSlice = createSlice({
       })
       .addCase(removeFavorite.rejected, (state, action) => {
         state.isloading = false;
-        state.errorMessage = action.error.message;
+        state.errorMessage = "failed when remove";
       });
   },
 });

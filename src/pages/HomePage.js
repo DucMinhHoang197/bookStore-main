@@ -23,6 +23,7 @@ const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 
 const HomePage = () => {
   const dispatch = useDispatch();
+  const errorMessage = useSelector((state) => state.book.errorMessage);
   const { books } = useSelector((state) => state.book);
   console.log(books, "books");
   const [pageNum, setPageNum] = useState(1);
@@ -31,7 +32,6 @@ const HomePage = () => {
 
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
   const handleClickBook = (bookId) => {

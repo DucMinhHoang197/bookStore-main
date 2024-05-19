@@ -21,23 +21,29 @@ const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 
 const ReadingPage = () => {
   const dispatch = useDispatch();
-
+  const favoriteBookList = useSelector((state) => state.book.favoriteBookList);
+  const errorMessage = useSelector((state) => state.book.errorMessage);
   const navigate = useNavigate();
 
   const handleClickBook = (bookId) => {
     navigate(`/books/${bookId}`);
   };
 
-  const removeBook = (bookId) => {
-    dispatch(removeFavorite({ bookId }));
-    dispatch(getFavorites(book));
+  const removeBook = async (bookId) => {
+    await dispatch(removeFavorite({ bookId }));
+    // await dispatch(getFavorites());
   };
 
+  useEffect(() => {
+    dispatch(getFavorites());
+  }, []);
   return (
     <Container>
       <Typography variant="h3" sx={{ textAlign: "center" }} m={3}>
         Book Store
       </Typography>
+      {errorMessage && <Alert severity="danger">{errorMessage}</Alert>}
+
       {loading ? (
         <Box sx={{ textAlign: "center", color: "primary.main" }}>
           <ClipLoader color="inherit" size={150} loading={true} />
@@ -49,7 +55,7 @@ const ReadingPage = () => {
           justifyContent="space-around"
           flexWrap={"wrap"}
         >
-          {books.map((book) => (
+          {favoriteBookList.map((book) => (
             <Card
               key={book.id}
               sx={{
