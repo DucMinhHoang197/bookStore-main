@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   Container,
   Button,
+  Alert,
   Box,
   Card,
   Stack,
@@ -23,6 +24,7 @@ const ReadingPage = () => {
   const dispatch = useDispatch();
   const favoriteBookList = useSelector((state) => state.book.favoriteBookList);
   const errorMessage = useSelector((state) => state.book.errorMessage);
+  const isloading = useSelector((state) => state.book.isLoading);
   const navigate = useNavigate();
 
   const handleClickBook = (bookId) => {
@@ -44,7 +46,7 @@ const ReadingPage = () => {
       </Typography>
       {errorMessage && <Alert severity="danger">{errorMessage}</Alert>}
 
-      {loading ? (
+      {isloading ? (
         <Box sx={{ textAlign: "center", color: "primary.main" }}>
           <ClipLoader color="inherit" size={150} loading={true} />
         </Box>
