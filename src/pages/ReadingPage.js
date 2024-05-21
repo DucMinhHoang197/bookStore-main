@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Container,
@@ -14,8 +14,8 @@ import {
 } from "@mui/material";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import api from "../apiService";
+// import { toast } from "react-toastify";
+// import api from "../apiService";
 import { removeFavorite, getFavorites } from "../service/slice";
 
 const BACKEND_API = process.env.REACT_APP_BACKEND_API;
@@ -32,13 +32,14 @@ const ReadingPage = () => {
   };
 
   const removeBook = async (bookId) => {
-    await dispatch(removeFavorite({ bookId }));
+    await dispatch(removeFavorite(bookId));
     // await dispatch(getFavorites());
   };
 
   useEffect(() => {
     dispatch(getFavorites());
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [favoriteBookList]);
   return (
     <Container>
       <Typography variant="h3" sx={{ textAlign: "center" }} m={3}>
@@ -91,7 +92,7 @@ const ReadingPage = () => {
                       minWidth: "1.5rem",
                     }}
                     size="small"
-                    onClick={removeBook}
+                    onClick={() => removeBook(book.id)}
                   >
                     &times;
                   </Button>
