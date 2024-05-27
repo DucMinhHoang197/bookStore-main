@@ -3,7 +3,7 @@ import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import PaginationBar from "../components/PaginationBar";
 import SearchForm from "../components/SearchForm";
-import api from "../apiService";
+// import api from "../apiService";
 import { FormProvider } from "../form";
 import { useForm } from "react-hook-form";
 import {
@@ -24,13 +24,14 @@ const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 const HomePage = () => {
   const dispatch = useDispatch();
   const errorMessage = useSelector((state) => state.book.errorMessage);
+  const loading = useSelector((state) => state.book.isLoading);
   const { books } = useSelector((state) => state.book);
   console.log(books, "books");
   const [pageNum, setPageNum] = useState(1);
   const totalPage = 10;
   const limit = 10;
 
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
 
   const navigate = useNavigate();
