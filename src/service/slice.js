@@ -105,7 +105,9 @@ export const bookSlice = createSlice({
       })
       .addCase(removeFavorite.fulfilled, (state, action) => {
         state.isloading = false;
-        state.favoriteBookList.filter((book) => book.id !== action.payload);
+        state.favoriteBookList = state.favoriteBookList.filter(
+          (book) => book.id !== action.payload
+        );
       })
       .addCase(removeFavorite.rejected, (state, action) => {
         state.isloading = false;
