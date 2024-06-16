@@ -14,4 +14,3 @@ const AlertMsg = () => {
 };
 
 export default AlertMsg;
-    

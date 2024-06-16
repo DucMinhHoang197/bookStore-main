@@ -3,12 +3,13 @@ import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import PaginationBar from "../components/PaginationBar";
 import SearchForm from "../components/SearchForm";
+import AlertMsg from "../components/AlertMsg";
+import { toast } from "react-toastify";
 // import api from "../apiService";
 import { FormProvider } from "../form";
 import { useForm } from "react-hook-form";
 import {
   Container,
-  Alert,
   Box,
   Card,
   Stack,
@@ -24,6 +25,7 @@ const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 const HomePage = () => {
   const dispatch = useDispatch();
   const errorMessage = useSelector((state) => state.book.errorMessage);
+  console.log(errorMessage, "Error");
   const loading = useSelector((state) => state.book.isLoading);
   const { books } = useSelector((state) => state.book);
   console.log(books, "books");
@@ -67,13 +69,14 @@ const HomePage = () => {
   const onSubmit = (data) => {
     setQuery(data.searchQuery);
   };
+  errorMessage && toast.error(errorMessage);
   return (
     <Container>
       <Stack sx={{ display: "flex", alignItems: "center", m: "2rem" }}>
         <Typography variant="h3" sx={{ textAlign: "center" }}>
           Book Store
         </Typography>
-        {errorMessage && <Alert severity="danger">{errorMessage}</Alert>}
+        <AlertMsg />
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <Stack
             spacing={2}

@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import AlertMsg from "../components/AlertMsg";
+import { toast } from "react-toastify";
 import {
   Container,
   Button,
-  Alert,
   Box,
   Card,
   Stack,
@@ -35,7 +36,7 @@ const ReadingPage = () => {
     await dispatch(removeFavorite(bookId));
     // await dispatch(getFavorites());
   };
-
+  errorMessage && toast.error(errorMessage);
   useEffect(() => {
     dispatch(getFavorites());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,8 +46,7 @@ const ReadingPage = () => {
       <Typography variant="h3" sx={{ textAlign: "center" }} m={3}>
         Book Store
       </Typography>
-      {errorMessage && <Alert severity="danger">{errorMessage}</Alert>}
-
+      <AlertMsg />
       {isloading ? (
         <Box sx={{ textAlign: "center", color: "primary.main" }}>
           <ClipLoader color="inherit" size={150} loading={true} />
