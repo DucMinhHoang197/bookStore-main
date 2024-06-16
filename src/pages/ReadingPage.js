@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AlertMsg from "../components/AlertMsg";
-import { toast } from "react-toastify";
 import {
   Container,
   Button,
@@ -24,7 +23,6 @@ const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 const ReadingPage = () => {
   const dispatch = useDispatch();
   const favoriteBookList = useSelector((state) => state.book.favoriteBookList);
-  const errorMessage = useSelector((state) => state.book.errorMessage);
   const isloading = useSelector((state) => state.book.isLoading);
   const navigate = useNavigate();
 
@@ -33,14 +31,12 @@ const ReadingPage = () => {
   };
 
   const removeBook = async (bookId) => {
-    await dispatch(removeFavorite(bookId));
+    dispatch(removeFavorite(bookId));
     // await dispatch(getFavorites());
   };
-  errorMessage && toast.error(errorMessage);
   useEffect(() => {
     dispatch(getFavorites());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [favoriteBookList]);
+  }, [dispatch]);
   return (
     <Container>
       <Typography variant="h3" sx={{ textAlign: "center" }} m={3}>

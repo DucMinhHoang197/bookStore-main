@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import PaginationBar from "../components/PaginationBar";
 import SearchForm from "../components/SearchForm";
 import AlertMsg from "../components/AlertMsg";
-import { toast } from "react-toastify";
 // import api from "../apiService";
 import { FormProvider } from "../form";
 import { useForm } from "react-hook-form";
@@ -69,7 +68,6 @@ const HomePage = () => {
   const onSubmit = (data) => {
     setQuery(data.searchQuery);
   };
-  errorMessage && toast.error(errorMessage);
   return (
     <Container>
       <Stack sx={{ display: "flex", alignItems: "center", m: "2rem" }}>

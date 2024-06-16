@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../apiService";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const addToReadingList = createAsyncThunk(
   "books/addToReadingList",
@@ -38,7 +39,9 @@ export const removeFavorite = createAsyncThunk(
   "books/removeFavorite",
   async (bookId) => {
     const response = await api.delete(`/favorites/${bookId}`);
+    
     return response.data;
+
   }
 );
 export const bookSlice = createSlice({
@@ -66,6 +69,7 @@ export const bookSlice = createSlice({
       .addCase(getBooks.rejected, (state) => {
         state.isloading = false;
         state.errorMessage = "Failed when getting books";
+        toast.error(state.errorMessage);
       })
       .addCase(fetchBookDetails.pending, (state) => {
         state.isloading = true;
@@ -88,6 +92,7 @@ export const bookSlice = createSlice({
       .addCase(addToReadingList.rejected, (state) => {
         state.isloading = false;
         state.errorMessage = "Failed when adding book to reading list";
+        toast.error(state.errorMessage);
       })
       .addCase(getFavorites.pending, (state) => {
         state.isloading = true;
@@ -108,6 +113,7 @@ export const bookSlice = createSlice({
         state.favoriteBookList = state.favoriteBookList.filter(
           (book) => book.id !== action.payload
         );
+
       })
       .addCase(removeFavorite.rejected, (state, action) => {
         state.isloading = false;
