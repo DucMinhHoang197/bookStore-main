@@ -37,11 +37,10 @@ export const getFavorites = createAsyncThunk(
 );
 export const removeFavorite = createAsyncThunk(
   "books/removeFavorite",
-  async (bookId) => {
+  async (bookId, { dispatch }) => {
     const response = await api.delete(`/favorites/${bookId}`);
-    
+    await dispatch(getFavorites());
     return response.data;
-
   }
 );
 export const bookSlice = createSlice({
@@ -113,7 +112,6 @@ export const bookSlice = createSlice({
         state.favoriteBookList = state.favoriteBookList.filter(
           (book) => book.id !== action.payload
         );
-
       })
       .addCase(removeFavorite.rejected, (state, action) => {
         state.isloading = false;
